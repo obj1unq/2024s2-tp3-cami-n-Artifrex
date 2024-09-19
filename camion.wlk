@@ -5,6 +5,7 @@ object camion {
 		
 	method cargar(unaCosa) {
 		cosas.add(unaCosa)
+		cosas.forEach({cosa => cosa.transformar() })
 	}
 
 	method descargar(cosa) {
@@ -51,5 +52,9 @@ object camion {
 
 	method cosaMasPesada() {
 		return cosas.max({cosa => cosa.peso()})
+	}
+
+	method totalBultos() {
+		return cosas.sum({cosa => cosa.bultos()})
 	}
 }
