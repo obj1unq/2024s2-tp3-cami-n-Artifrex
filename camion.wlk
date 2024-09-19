@@ -44,4 +44,12 @@ object camion {
 	method peligrosidadMaxima() {
 		return cosas.sum({cosa => cosa.nivelPeligrosidad()})
 	}
+
+	method tieneAlgoQuePesaEntre(min, max) {
+		return cosas.any({cosa => cosa.peso() >= max && cosa.peso() <= min})
+	}
+
+	method cosaMasPesada() {
+		return cosas.max({cosa => cosa.peso()})
+	}
 }
