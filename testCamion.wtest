@@ -1,0 +1,39 @@
+import camion.*
+import cosas.*
+
+describe "El Camión" {
+
+    test "Tienen peso par" {
+        camion.cargar(bumblebee)
+        camion.cargar(paqueteLadrillos)
+        assert.that(camion.todoPesoPar())
+        
+    }
+
+    test "Objeto mas peligroso y que supera nivel peligrosidad" {
+        camion.cargar(knightRider)
+        camion.cargar(bumblebee)
+        camion.cargar(residuosRadioactivos)
+
+
+        assert.equals(#{residuosRadioactivos}, camion.objetosQueSuperanPeligrosidad(100))
+        assert.equals(#{}, camion.objetosMasPeligrososQue(residuosRadioactivos))
+    }
+}
+
+describe "Agregados al Camión" {
+
+    test "algo que pesa entre un min y un max, cosa mas pesada, pesos y total de bultos" {
+        camion.cargar(knightRider)
+        camion.cargar(bumblebee)
+        camion.cargar(bateriaAntiarea)
+
+        assert.that(camion.tieneAlgoQuePesaEntre(100, 820))
+        
+        assert.equals(bumblebee, camion.cosaMasPesada())
+
+        assert.equals([500, 800, 300], camion.pesos())
+
+        assert.equals(5, camion.totalBultos())
+    }
+}

@@ -1,4 +1,5 @@
 import camion.*
+import almacenYCaminos.*
 
 object knightRider {
 	method peso() {
@@ -17,7 +18,7 @@ object knightRider {
 	}
 }
 
-object bomblebee {
+object bumblebee {
 	var transformacion = auto
 
 	method transformacion(_transformacion) {
@@ -41,7 +42,7 @@ object bomblebee {
 	}
 }
 
-//Transformaciones de Bomblebee
+//Transformaciones de Bumblebee
 object auto {
 	
 	method peligrosidad() {
@@ -80,7 +81,7 @@ object paqueteLadrillos {
 	}
 
 	method transformar() {
-		self.peso() + 15
+		cantLadrillos += 12
 	}
 }
 
@@ -96,7 +97,7 @@ object arenaGranel {
 	}
 
 	method transformar() {
-		peso + 20
+		peso+= 20
 	}
 }
 
@@ -163,12 +164,12 @@ object residuosRadioactivos {
 		return 1
 	}
 	method transformar() {
-		self.peso() + 15
+		peso+= 15
 	}
 }
 
 object embalaje {
-	var cosaQueEnvuelve = arenaGranel
+	var cosaQueEnvuelve = bumblebee
 
 	method cosaQueEnvuelve(_cosaQueEnvuelve) {
 		cosaQueEnvuelve = _cosaQueEnvuelve
