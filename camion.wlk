@@ -17,7 +17,7 @@ object camion {
 	}
 
 	method estaExcedidoEnCarga(destino) {
-		return self.totalBultos() > destino.bultosMaximos()
+		return self.totalBultos() >= destino.bultosMaximos()
 	}
 
 	method cargar(unaCosa) {
