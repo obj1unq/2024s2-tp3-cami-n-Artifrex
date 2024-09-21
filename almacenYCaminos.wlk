@@ -3,11 +3,18 @@ import cosas.*
 
 object almacen {
 
-    const almacen = #{}
+    const property almacen = #{}
 
     method almacenar(cosas) {
+    //    self.validarCarga(vehiculo) -> forma que no me convence, porque el almacen no tendria porqué saber del vehiculo
         almacen.addAll(cosas)
     }
+
+//    method validarCarga(vehiculo) {
+//        if (vehiculo.totalBultos() >= self.bultosMaximos()) {
+//            self.error("La carga del vehículo no caben en el almacen")
+//        }
+//    }
 
     method bultosMaximos() {
         return 3

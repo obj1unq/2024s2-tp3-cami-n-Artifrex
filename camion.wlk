@@ -11,8 +11,8 @@ object camion {
 	}
 
 	method validarTransporte(destino, camino) {
-		if (self.estaExcedidoEnCarga(destino) && not camino.puedePasar(self)) {
-			self.error("El peso o los bultos superan el valor máximo soportado")
+		if (not camino.puedePasar(self) or self.estaExcedidoEnCarga(destino)) {
+			self.error("El peso o la peligrosidad superan el valor soportado")
 		}
 	}
 
@@ -22,7 +22,7 @@ object camion {
 
 	method cargar(unaCosa) {
 		cosas.add(unaCosa)
-		cosas.forEach({cosa => cosa.transformar()})
+		unaCosa.transformar()
 	}
 
 	method descargar(cosa) {
@@ -52,7 +52,7 @@ object camion {
 	}
 
 	method objetosQueSuperanPeligrosidad(nivel) {
-		return cosas.filter({cosa => cosa.nivelPeligrosidad() >= nivel})
+		return cosas.filter({cosa => cosa.nivelPeligrosidad() > nivel})
 	}
 
 	method objetosMasPeligrososQue(cosa) {
@@ -77,7 +77,7 @@ object camion {
 	}
 
 	method pesos() {
-		return cosas.map({cosa => cosa.peso()}).asList()
+		return cosas.map({cosa => cosa.peso()})
 	}
 
 	method totalBultos() {
