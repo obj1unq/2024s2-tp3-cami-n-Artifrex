@@ -72,7 +72,7 @@ object paqueteLadrillos {
 		return 2
 	}
 
-	method bultos() {
+	method bulto() {
 		if(cantLadrillos <= 100) {
 			return 1
 		} else if(cantLadrillos.between(101, 300)) {
@@ -144,7 +144,7 @@ object contenedorPortuario {
 		return cosas.max({cosa => cosa.nivelPeligrosidad()})
 	}
 
-	method bultos() {
+	method bulto() {
 		return 1 + cosas.sum({cosa => cosa.bulto()})
 	}
 
@@ -160,7 +160,7 @@ object residuosRadioactivos {
 		return 200
 	}
 
-	method bultos() {
+	method bulto() {
 		return 1
 	}
 	method transformar() {
