@@ -12,7 +12,7 @@ object camion {
 
 	method validarTransporte(destino, camino) {
 		if (not camino.puedePasar(self) or self.estaExcedidoEnCarga(destino)) {
-			self.error("El peso o la peligrosidad superan el valor soportado")
+			self.error("El peso/peligrosidad o los bultos superan el valor soportado")
 		}
 	}
 
