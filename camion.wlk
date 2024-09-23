@@ -6,20 +6,20 @@ object camion {
 
 	method transportar(destino, camino) {
 		self.validarTransporte(destino, camino)
-		destino.almacenar(cosas)
+		destino.almacenar(cosas, self)
 		cosas.clear()
 	}
 
 	method validarTransporte(destino, camino) {
-		if (not camino.puedePasar(self) or self.estaExcedidoEnCarga(destino)) {
+		if (not camino.puedePasar(self)) {
 			self.error("El peso o la peligrosidad superan el valor soportado")
 		}
 	}
 
-	method estaExcedidoEnCarga(destino) {
+/*	method estaExcedidoEnCarga(destino) {
 		return self.totalBultos() >= destino.bultosMaximos()
 	}
-
+*/
 	method cargar(unaCosa) {
 		cosas.add(unaCosa)
 		unaCosa.transformar()

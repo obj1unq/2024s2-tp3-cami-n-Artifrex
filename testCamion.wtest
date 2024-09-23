@@ -50,15 +50,21 @@ describe "El Camión" {
     test "Transporte por Camino Vecinal - Excepcion" {
         camion.cargar(arenaGranel)
         camion.cargar(residuosRadioactivos)
+        camion.cargar(paqueteLadrillos)
 
         caminoVecinal.pesoMaximo(300)
+        camion.transportar(almacen, caminoVecinal)
 
         assert.throwsException({camion.transportar(almacen, caminoVecinal)})
+        assert.equals(#{}, almacen.almacen())
     }
 
     test "Transporte por Ruta 9" {
+        paqueteLadrillos.cantLadrillos(400)
+
         camion.cargar(arenaGranel)
         camion.cargar(paqueteLadrillos)
+        
         
         camion.transportar(almacen, ruta9)
 
@@ -71,5 +77,18 @@ describe "El Camión" {
         camion.cargar(bateriaAntiarea)
 
         assert.throwsException({camion.transportar(almacen, ruta9)})
+    }
+
+    test "Demasiados bultos para el almacen" {
+        paqueteLadrillos.cantLadrillos(400)
+
+        camion.cargar(arenaGranel)
+        camion.cargar(paqueteLadrillos)
+        
+        
+        camion.transportar(almacen, ruta9)
+
+        assert.equals(#{arenaGranel, paqueteLadrillos}, almacen.almacen())
+        assert.equals(#{}, camion.cosas())
     }
 }
