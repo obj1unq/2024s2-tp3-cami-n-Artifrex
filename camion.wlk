@@ -2,6 +2,7 @@ import cosas.*
 import almacenYCaminos.*
 
 object camion {
+	
 	const property cosas = #{}
 
 	method transportar(destino, camino) {
