@@ -1,0 +1,94 @@
+import almacenYCaminos.*
+import camion.*
+import cosas.*
+
+describe "El Camión" {
+
+    test "Pesos y Total de Bultos" {
+        embalaje.cosaQueEnvuelve(knightRider)
+
+        camion.cargar(embalaje)
+        camion.cargar(knightRider)
+        camion.cargar(arenaGranel)
+        camion.cargar(residuosRadioactivos)
+
+        assert.notThat(camion.todoPesoPar())
+        assert.that(camion.hayAlgunoQuePesa(500))
+        assert.notThat(camion.excedidoDePeso())
+        assert.that(camion.tieneAlgoQuePesaEntre(300, 500))
+        assert.equals(embalaje, camion.cosaMasPesada())
+        assert.equals([500, 500, 21, 15], camion.pesos())
+        assert.equals(5, camion.totalBultos())
+    }
+
+    test "Peligrosidad" {        
+        embalaje.cosaQueEnvuelve(knightRider)
+
+        camion.cargar(embalaje)
+        camion.cargar(knightRider)
+        camion.cargar(arenaGranel)
+        camion.cargar(residuosRadioactivos)
+
+        assert.equals(knightRider, camion.elDeNivel(10))
+        assert.equals(#{residuosRadioactivos}, camion.objetosQueSuperanPeligrosidad(198))
+        assert.equals(#{knightRider, residuosRadioactivos}, camion.objetosMasPeligrososQue(embalaje))
+        assert.notThat(camion.puedeCircularEnRuta(5))
+    }
+
+    test "Transporte por Camino Vecinal" {
+        camion.cargar(arenaGranel)
+        camion.cargar(residuosRadioactivos)
+
+        caminoVecinal.pesoMaximo(2000)
+
+        camion.transportar(almacen, caminoVecinal)
+
+        assert.equals(#{arenaGranel, residuosRadioactivos}, almacen.almacen())
+        assert.equals(#{}, camion.cosas())
+    }
+
+    test "Transporte por Camino Vecinal - Excepcion" {
+        camion.cargar(arenaGranel)
+        camion.cargar(residuosRadioactivos)
+        camion.cargar(paqueteLadrillos)
+
+        caminoVecinal.pesoMaximo(300)
+        camion.transportar(almacen, caminoVecinal)
+
+        assert.throwsException({camion.transportar(almacen, caminoVecinal)})
+        assert.equals(#{}, almacen.almacen())
+    }
+
+    test "Transporte por Ruta 9" {
+        paqueteLadrillos.cantLadrillos(400)
+
+        camion.cargar(arenaGranel)
+        camion.cargar(paqueteLadrillos)
+        
+        
+        camion.transportar(almacen, ruta9)
+
+        assert.equals(#{arenaGranel, paqueteLadrillos}, almacen.almacen())
+        assert.equals(#{}, camion.cosas())
+    }
+
+    test "Transporte por Ruta 9 - Excepcion" {
+        camion.cargar(arenaGranel)
+        camion.cargar(bateriaAntiarea)
+
+        assert.throwsException({camion.transportar(almacen, ruta9)})
+    }
+
+    test "Demasiados bultos para el almacen" {
+        paqueteLadrillos.cantLadrillos(400)
+
+        camion.cargar(arenaGranel)
+        camion.cargar(paqueteLadrillos)
+        
+        
+        camion.transportar(almacen, ruta9)
+
+        assert.equals(#{arenaGranel, paqueteLadrillos}, almacen.almacen())
+        assert.equals(#{}, camion.cosas())
+    }
+}
