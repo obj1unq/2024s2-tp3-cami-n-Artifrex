@@ -7,7 +7,7 @@ object camion {
 
 	method transportar(destino, camino) {
 		self.validarTransporte(destino, camino)
-		destino.almacenar(cosas, self)
+		destino.almacenar(self.cosas())
 		cosas.clear()
 	}
 
@@ -69,8 +69,7 @@ object camion {
 	}
 
 	method tieneAlgoQuePesaEntre(min, max) {
-		return cosas.any({cosa => cosa.peso() >= min && cosa.peso() <= max})
-		//yo se que hay una mejor forma de hacerla pero no se me ocurre
+		return cosas.any({cosa => cosa.peso().between(min, max)})
 	}
 
 	method cosaMasPesada() {

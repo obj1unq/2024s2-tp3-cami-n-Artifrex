@@ -5,9 +5,9 @@ object almacen {
 
     const property almacen = #{}
 
-    method almacenar(cosas, vehiculo) {
+    method almacenar(vehiculo) {
         self.validarCarga(vehiculo)
-        almacen.addAll(cosas)
+        almacen.addAll(vehiculo.cosas())
     }
 
     method validarCarga(vehiculo) {
